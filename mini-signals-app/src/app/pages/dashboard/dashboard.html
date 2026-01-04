@@ -1,0 +1,25 @@
+<h2>Student Tasks Dashboard</h2>
+
+<div>
+  <input
+    [value]="statusFilter()"
+    (input)="filterText.set($any($event.target).value)"
+    placeholder="Search by title or Student..."
+  />
+
+  <select [value]="statusFilter()" (change)="statusFilter.set($any($event.target).value)">
+    <option value="all">All</option>
+    <option value="todo">Todo</option>
+    <option value="done">Done</option>
+  </select>
+
+  <app-task-form (create)="addTask($event)"></app-task-form>
+  <app-task-stats [tasks]="filteredTasks()"></app-task-stats>
+  <app-task-list
+  [tasks]="filteredTasks()"
+  (toggle)="toggleDone($event)"
+  (remove)="deleteTask($event)">
+  </app-task-list>
+</div>
+
+<br>
