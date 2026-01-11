@@ -1,0 +1,54 @@
+<div class="container my-5">
+  @if (errorMsg) {
+  <div class="alert alert-danger">
+    {{ errorMsg }}
+  </div>
+  } @else {
+  <div class="card shadow-sm border-0">
+    <!-- Card Header -->
+    <div
+      class="card-header bg-secondary text-white d-flex justify-content-between align-items-center"
+    >
+      <h5 class="mb-0">Products List</h5>
+      <span class="badge bg-success">{{ products.length }} Product!</span>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>#ID</th>
+            <th>NAME</th>
+            <th class="text-end">PRICE (MAD)</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for(product of products; track product.id) {
+          <tr>
+            <td class="fw-semibold">{{ product.id }}</td>
+            <td>
+              <i class="bi bi-box-seam me-2 text-primary"></i>
+              {{ product.name }}
+            </td>
+            <td class="text-end fw-bold text-success">{{ product.price }} DH</td>
+            <td>
+              <button (click)="handleDeleteProduct(product)" class="btn btn-danger">
+                <i class="bi bi-trash mx-2"></i>
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Card Footer -->
+    <div class="card-footer text-end bg-light">
+      <strong>Total Products: {{ products.length }}</strong>
+    </div>
+  </div>
+  }
+</div>
