@@ -32,6 +32,20 @@ export class Products implements OnInit {
       next: (data) => {
         this.products = this.products.filter((p) => p.id != product.id);
       },
+      error: (err) => {
+        this.errorMsg = err;
+      }
+    });
+  }
+
+  handleSetPromotion(product: Product) {
+    this.productService.setPromotion(product.id).subscribe({
+      next: (data) => {
+        product.promotion = !product.promotion;
+      },
+      error: (err) => {
+        this.errorMsg = err;
+      }
     });
   }
 }

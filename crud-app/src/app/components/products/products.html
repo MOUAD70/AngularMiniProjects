@@ -21,7 +21,8 @@
             <th>#ID</th>
             <th>NAME</th>
             <th class="text-end">PRICE (MAD)</th>
-            <th>ACTIONS</th>
+            <th class="text-end">PROMOTION</th>
+            <th class="text-end">ACTIONS</th>
           </tr>
         </thead>
 
@@ -34,7 +35,19 @@
               {{ product.name }}
             </td>
             <td class="text-end fw-bold text-success">{{ product.price }} DH</td>
-            <td>
+
+            @if (product.promotion === true) {
+            <td class="text-end">
+              <i class="bi bi-tag-fill text-success"></i>
+              <button (click)="handleSetPromotion(product)" class="btn btn-outline-danger mx-2">DISABLE PROMOTION</button>
+            </td>
+            } @else {
+            <td class="text-end">
+              <i class="bi bi-tag text-danger"></i>
+              <button (click)="handleSetPromotion(product)" class="btn btn-outline-success mx-2">ENABLE PROMOTION</button>
+            </td>
+            }
+            <td class="text-end">
               <button (click)="handleDeleteProduct(product)" class="btn btn-danger">
                 <i class="bi bi-trash mx-2"></i>
               </button>
