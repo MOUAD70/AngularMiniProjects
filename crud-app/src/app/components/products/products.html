@@ -4,6 +4,13 @@
     {{ errorMsg }}
   </div>
   } @else {
+  <input
+    class="form-control mb-3"
+    placeholder="Search product..."
+    [(ngModel)]="search"
+    (ngModelChange)="handleSearchProducts()"
+  />
+
   <div class="card shadow-sm border-0">
     <!-- Card Header -->
     <div
@@ -39,12 +46,16 @@
             @if (product.promotion === true) {
             <td class="text-end">
               <i class="bi bi-tag-fill text-success"></i>
-              <button (click)="handleSetPromotion(product)" class="btn btn-outline-danger mx-2">DISABLE PROMOTION</button>
+              <button (click)="handleSetPromotion(product)" class="btn btn-outline-danger mx-2">
+                DISABLE PROMOTION
+              </button>
             </td>
             } @else {
             <td class="text-end">
               <i class="bi bi-tag text-danger"></i>
-              <button (click)="handleSetPromotion(product)" class="btn btn-outline-success mx-2">ENABLE PROMOTION</button>
+              <button (click)="handleSetPromotion(product)" class="btn btn-outline-success mx-2">
+                ENABLE PROMOTION
+              </button>
             </td>
             }
             <td class="text-end">

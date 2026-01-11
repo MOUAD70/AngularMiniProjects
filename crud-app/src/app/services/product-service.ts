@@ -57,4 +57,21 @@ export class ProductService {
       return throwError(() => new Error('Product not found'));
     }
   }
+
+  public searchProducts(keyword: string): Observable<Product[]> {
+    const query = keyword.trim().toLowerCase();
+
+    if (!query) {
+      return of([...this.products]);
+    }
+
+    const filtered = this.products.filter(
+      (p) =>
+        p.name.toLowerCase().includes(query) ||
+        String(p.id).includes(query) ||
+        String(p.price).includes(query)
+    );
+
+    return of(filtered);
+  }
 }

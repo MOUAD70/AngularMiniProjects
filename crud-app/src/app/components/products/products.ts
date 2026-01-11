@@ -13,6 +13,7 @@ import { Product } from '../../models/product';
 export class Products implements OnInit {
   products: Product[] = [];
   errorMsg: string = '';
+  search: string = '';
 
   constructor(private productService: ProductService) {}
 
@@ -23,29 +24,34 @@ export class Products implements OnInit {
   handleGetAllProducts() {
     this.productService.getAllProducts().subscribe({
       next: (data) => (this.products = data),
-      error: (err) => (this.errorMsg = err),
+      error: (err) => (this.errorMsg = err?.message ?? 'Error'),
     });
   }
 
   handleDeleteProduct(product: Product) {
     this.productService.deleteProduct(product.id).subscribe({
-      next: (data) => {
-        this.products = this.products.filter((p) => p.id != product.id);
+      next: () => {
+        this.handleSearchProducts();
       },
-      error: (err) => {
-        this.errorMsg = err;
-      }
+      error: (err) => (this.errorMsg = err?.message ?? 'Error'),
     });
   }
 
   handleSetPromotion(product: Product) {
     this.productService.setPromotion(product.id).subscribe({
-      next: (data) => {
+      next: () => {
         product.promotion = !product.promotion;
       },
-      error: (err) => {
-        this.errorMsg = err;
-      }
+      error: (err) => (this.errorMsg = err?.message ?? 'Error'),
+    });
+  }
+
+  handleSearchProducts() {
+    this.productService.searchProducts(this.search).subscribe({
+      next: (data) => {
+        this.products = data;
+      },
+      error: (err) => (this.errorMsg = err?.message ?? 'Error'),
     });
   }
 }
