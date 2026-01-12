@@ -1,5 +1,5 @@
 import { ProductService } from './../../services/product-service';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../models/product';
 
@@ -14,16 +14,28 @@ export class Products implements OnInit {
   products: Product[] = [];
   errorMsg: string = '';
   search: string = '';
+  currentPage: number = 0;
+  pageSize: number = 5;
+  totalPages: number = 0;
 
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.handleGetAllProducts();
+    this.handleGetPageProducts();
   }
 
   handleGetAllProducts() {
     this.productService.getAllProducts().subscribe({
       next: (data) => (this.products = data),
+      error: (err) => (this.errorMsg = err?.message ?? 'Error'),
+    });
+  }
+
+  handleGetPageProducts() {
+    this.productService.getPageProducts(this.currentPage, this.pageSize).subscribe({
+      next: (data) => {
+        (this.products = data.products), (this.totalPages = data.totalPages);
+      },
       error: (err) => (this.errorMsg = err?.message ?? 'Error'),
     });
   }
@@ -53,5 +65,10 @@ export class Products implements OnInit {
       },
       error: (err) => (this.errorMsg = err?.message ?? 'Error'),
     });
+  }
+
+  gotoPage(index: number) {
+    this.currentPage = index;
+    this.handleGetPageProducts();
   }
 }

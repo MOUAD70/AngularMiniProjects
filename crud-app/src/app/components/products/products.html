@@ -68,6 +68,40 @@
         </tbody>
       </table>
     </div>
+    <nav aria-label="Products pagination">
+      <ul class="pagination pagination-sm justify-content-center my-2">
+        <!-- Prev -->
+        <li class="page-item" [class.disabled]="currentPage === 0">
+          <a
+            class="page-link"
+            href="#"
+            (click)="$event.preventDefault(); gotoPage(currentPage - 1)"
+          >
+            «
+          </a>
+        </li>
+
+        <!-- Pages -->
+        @for (_ of [].constructor(totalPages); track $index) {
+        <li class="page-item" [class.active]="$index === currentPage">
+          <a class="page-link" href="#" (click)="$event.preventDefault(); gotoPage($index)">
+            {{ $index + 1 }}
+          </a>
+        </li>
+        }
+
+        <!-- Next -->
+        <li class="page-item" [class.disabled]="currentPage >= totalPages - 1">
+          <a
+            class="page-link"
+            href="#"
+            (click)="$event.preventDefault(); gotoPage(currentPage + 1)"
+          >
+            »
+          </a>
+        </li>
+      </ul>
+    </nav>
 
     <!-- Card Footer -->
     <div class="card-footer text-end bg-light">

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../models/product';
+import { PageProduct, Product } from '../models/product';
 import { Observable, of, throwError } from 'rxjs';
 
 @Injectable({
@@ -40,6 +40,22 @@ export class ProductService {
     // }
 
     return of([...this.products]);
+  }
+
+  public getPageProducts(page: number, size: number): Observable<PageProduct> {
+    let totalPages = Math.ceil(this.products.length / size);
+    const start = page * size;
+
+    if (this.products.length % size != 0) totalPages++;
+
+    const pageProducts = this.products.slice(start, start + size);
+
+    return of({
+      products: pageProducts,
+      page: page,
+      size: size,
+      totalPages: totalPages,
+    });
   }
 
   public deleteProduct(id: number): Observable<boolean> {
