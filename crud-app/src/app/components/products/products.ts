@@ -2,6 +2,7 @@ import { ProductService } from './../../services/product-service';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../models/product';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-products',
@@ -18,7 +19,7 @@ export class Products implements OnInit {
   pageSize: number = 5;
   totalPages: number = 0;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, public authService: AuthService) {}
 
   ngOnInit(): void {
     this.handleGetPageProducts();

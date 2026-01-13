@@ -7,7 +7,7 @@ import { Observable, of, throwError } from 'rxjs';
 })
 export class AuthService {
   users: AppUser[] = [];
-  authenticatedUser!: AppUser;
+  authenticatedUser!: AppUser | undefined;
 
   constructor() {
     this.users.push(
@@ -30,6 +30,10 @@ export class AuthService {
         roles: ['USER'],
       }
     );
+  }
+
+  public hasRole(role: string): boolean {
+    return this.authenticatedUser!.roles.includes(role);
   }
 
   public login(username: string, password: string): Observable<AppUser> {
@@ -60,5 +64,11 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     return this.authenticatedUser != undefined;
+  }
+
+  logout(): Observable<boolean> {
+    this.authenticatedUser = undefined;
+    localStorage.removeItem('authUser');
+    return of(true);
   }
 }

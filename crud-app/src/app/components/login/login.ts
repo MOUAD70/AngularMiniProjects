@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, JsonPipe],
+  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

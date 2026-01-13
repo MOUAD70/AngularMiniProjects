@@ -3,6 +3,7 @@ import { Products } from './components/products/products';
 import { Customers } from './components/customers/customers';
 import { Login } from './components/login/login';
 import { AdminTemplate } from './components/admin-template/admin-template';
+import { authenticationGuard } from './guards/authentication-guard';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminTemplate,
+    canActivate: [authenticationGuard], 
     children: [
       {
         path: 'products',

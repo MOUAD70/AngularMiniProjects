@@ -57,12 +57,13 @@
                 ENABLE PROMOTION
               </button>
             </td>
-            }
+            } @if (authService.hasRole("ADMIN")) {
             <td class="text-end">
               <button (click)="handleDeleteProduct(product)" class="btn btn-danger">
                 <i class="bi bi-trash mx-2"></i>
               </button>
             </td>
+            }
           </tr>
           }
         </tbody>
