@@ -35,7 +35,7 @@ export class Login implements OnInit {
       next: (appUSer) => {
         this.authService.authenticateUser(appUSer).subscribe({
           next: (data) => {
-            this.router.navigateByUrl('/products');
+            this.router.navigateByUrl('/admin');
           },
         });
       },
